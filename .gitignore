@@ -1,0 +1,22 @@
+# IntelliJ
+.idea/
+# Python
+.venv/
+build/
+*.egg-info/
+*.pyc
+*_cache/
+__pycache__/
+# Secrets
+*.env*
+!.env.sample
+*id_*
+# Terraform
+.terraform/
+*.tfstate*
+# Configuration
+*config*.yaml
+!config.template.yaml
+# Tempoary files
+tmp*
+temp*
