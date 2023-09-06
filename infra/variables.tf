@@ -25,3 +25,8 @@ variable "acme_email" {
   type        = string
   description = "Email for LetsEncrpyt"
 }
+
+variable "admin_username" {
+  type        = string
+  description = "Admin user for JupyterHub who will be able to create new users. It must align with the AAD identity and include + inplace of whitespace"
+}

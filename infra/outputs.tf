@@ -11,5 +11,5 @@ output "ssh_args" {
 }
 
 output "jupyterhub_url" {
-  value = "https://${module.cloudflare.fqdn}"
+  value = local.url
 }

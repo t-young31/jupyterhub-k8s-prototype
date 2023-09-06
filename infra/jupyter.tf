@@ -7,8 +7,13 @@ resource "helm_release" "jupyterhub" {
   values = [
     templatefile("config.template.yaml",
       {
-        acme_email = var.acme_email
-        fqdn       = module.cloudflare.fqdn
+        admin_username     = replace(var.admin_username, "+", " ")
+        acme_email         = var.acme_email
+        fqdn               = module.cloudflare.fqdn
+        aad_client_id      = module.aad.client_id
+        aad_client_secret  = module.aad.client_secret
+        oauth_callback_url = local.oauth_callback_url
+        aad_tenant_id      = module.aad.tenant_id
       }
     )
   ]

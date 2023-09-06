@@ -5,3 +5,20 @@ proxy:
       - ${fqdn}
     letsencrypt:
       contactEmail: ${acme_email}
+
+hub:
+  config:
+    Authenticator:
+      auto_login: true
+      admin_users:
+        - ${admin_username}
+    AzureAdOAuthenticator:
+      client_id: ${aad_client_id}
+      client_secret:  ${aad_client_secret}
+      oauth_callback_url: ${oauth_callback_url}
+      tenant_id: ${aad_tenant_id}
+      scope:
+        - openid
+        - email
+    JupyterHub:
+      authenticator_class: azuread
