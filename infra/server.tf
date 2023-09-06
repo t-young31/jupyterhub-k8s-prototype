@@ -27,6 +27,7 @@ resource "aws_instance" "server" {
   }
 
   depends_on = [
+    module.vpc,
     aws_security_group_rule.all_ingress_from_deployers_ip
   ]
 }
@@ -35,6 +36,8 @@ resource "null_resource" "wait_for_k3s" {
   provisioner "local-exec" {
     command = "sleep 120" # TODO: something less janky
   }
+
+  depends_on = [aws_instance.server]
 }
 
 resource "null_resource" "get_kubeconfig" {

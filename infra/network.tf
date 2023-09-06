@@ -32,10 +32,8 @@ resource "aws_security_group" "default" {
 
 resource "aws_security_group_rule" "all_ingress_from_deployers_ip" {
   for_each = {
-    ssh   = 22
-    k8s   = 6443
-    http  = 80
-    https = 443
+    ssh = 22
+    k8s = 6443
   }
 
   type              = "ingress"
@@ -44,5 +42,20 @@ resource "aws_security_group_rule" "all_ingress_from_deployers_ip" {
   to_port           = each.value
   protocol          = "tcp"
   cidr_blocks       = ["${data.http.deployer_ip.response_body}/32"]
+  security_group_id = aws_security_group.default.id
+}
+
+resource "aws_security_group_rule" "all_http" { # Required for the acme challange
+  for_each = {
+    http  = 80
+    https = 443
+  }
+
+  type              = "ingress"
+  description       = "http"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.default.id
 }

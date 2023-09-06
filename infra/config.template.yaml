@@ -1,0 +1,7 @@
+proxy:
+  https:
+    enabled: true
+    hosts:
+      - ${fqdn}
+    letsencrypt:
+      contactEmail: ${acme_email}

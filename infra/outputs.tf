@@ -11,5 +11,5 @@ output "ssh_args" {
 }
 
 output "jupyterhub_url" {
-  value = "http://${aws_instance.server.public_ip}"
+  value = "https://${module.cloudflare.fqdn}"
 }
