@@ -17,6 +17,7 @@ __pycache__/
 # Configuration
 *config*.yaml
 !config.template.yaml
+!.pre-commit-config.yaml
 # Tempoary files
 tmp*
 temp*
