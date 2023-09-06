@@ -31,15 +31,23 @@ resource "aws_instance" "server" {
   ]
 }
 
+resource "null_resource" "wait_for_k3s" {
+  provisioner "local-exec" {
+    command = "sleep 120" # TODO: something less janky
+  }
+}
+
 resource "null_resource" "get_kubeconfig" {
   provisioner "local-exec" {
     command = join(" && ", [
-      "scp -i ${local.ssh_key_path} ${local.ssh_host}:/etc/rancher/k3s/k3s.yaml ../kube_config.yaml",
-      "python replace_ip_in_kubeconfig.py ../kube_config.yaml ${aws_instance.server.public_ip}"
+      "scp -i ${local.ssh_key_path} -o 'StrictHostKeyChecking no' ${local.ssh_host}:/etc/rancher/k3s/k3s.yaml ${local.kube_config_path}",
+      "python replace_ip_in_kubeconfig.py ${local.kube_config_path} ${aws_instance.server.public_ip}"
     ])
   }
 
   triggers = {
     hash = md5(file("replace_ip_in_kubeconfig.py"))
   }
+
+  depends_on = [null_resource.wait_for_k3s]
 }

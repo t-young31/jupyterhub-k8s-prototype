@@ -9,3 +9,7 @@ output "ssh_host" {
 output "ssh_args" {
   value = local.ssh_args
 }
+
+output "jupyterhub_url" {
+  value = "http://${aws_instance.server.public_ip}"
+}

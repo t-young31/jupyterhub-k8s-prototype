@@ -31,3 +31,12 @@ dnf install wget make -y
 yum install -y yum-utils
 yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
 yum -y install terraform
+
+# Install helm and the jupyter repository
+wget https://get.helm.sh/helm-v3.12.3-linux-amd64.tar.gz -O helm.tar.gz
+tar -zxvf helm.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+rm -rf helm.tar.gz
+
+helm repo add jupyterhub https://hub.jupyter.org/helm-chart/
+helm repo update

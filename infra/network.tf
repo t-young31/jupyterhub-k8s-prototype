@@ -34,6 +34,7 @@ resource "aws_security_group_rule" "all_ingress_from_deployers_ip" {
   for_each = {
     ssh   = 22
     k8s   = 6443
+    http  = 80
     https = 443
   }
 

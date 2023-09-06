@@ -4,6 +4,8 @@ locals {
 
   k3s_version = "v1.27.3+k3s1"
 
+  kube_config_path = "${path.module}/../kube_config.yaml"
+
   ssh_key_path = "${path.module}/../${local.ssh_key_name}"
   ssh_args     = "-i ${local.ssh_key_name}"
   ssh_host     = "${local.ec2_username}@${aws_instance.server.public_ip}"

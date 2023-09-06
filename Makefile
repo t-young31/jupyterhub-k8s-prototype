@@ -18,14 +18,11 @@ define terraform-destroy
 endef
 
 all:
-	echo "Please call a specific target!"; exit 1
+	$(call terraform-apply, ./infra)
+	@echo "Using kubectl requires: export KUBECONFIG=kube_config.yaml"
 
 login:
 	aws configure sso
 
-aws:
-	$(call terraform-apply, ./aws)
-	@echo "Run: export KUBECONFIG=kube_config.yaml"
-
-aws-destroy:
-	$(call terraform-destroy, ./aws)
+destroy:
+	$(call terraform-destroy, ./infra)

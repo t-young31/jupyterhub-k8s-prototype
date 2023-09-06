@@ -9,6 +9,11 @@ terraform {
       source  = "hashicorp/http"
       version = "3.4.0"
     }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.11.0"
+    }
   }
 
   required_version = ">=1.2.0"
@@ -16,4 +21,10 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = local.kube_config_path
+  }
 }
